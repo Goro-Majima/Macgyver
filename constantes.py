@@ -1,13 +1,21 @@
-
-cote_fenetre = 450
+#dimensions
+cote_fenetre = 600
 nombre_sprite = 15
-cote_sprite = 30
-
+taille_sprite = 40
+#titre
 titre_fenetre = "Macgyver escape"
 
+#images structures
+image_mur = "images/brick.png"
+image_fond = "images/fond.jpg"
 
 
+#images perso
+image_hero = "images/MacGyver.png"
+image_badguy = "images/Gardien.png"
 
+#objets
+image_ether = "images/ether.png"
+image_tube_plastique="images/tube_plastique.png"
+image_seringue="images/seringue.png"
 
-
-image_accueil= "ressource/structures.png"
