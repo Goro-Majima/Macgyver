@@ -1,26 +1,28 @@
 import pygame
 from pygame.locals import *
 
-from constantes import *
+from constants import *
 from classes import *
 
 pygame.init()
 
-fenetre = pygame.display.set_mode((cote_fenetre,cote_fenetre))
-fond = pygame.image.load(image_fond).convert()
+window = pygame.display.set_mode((win_size,win_size))
+floor = pygame.image.load(image_floor).convert()
 hero = pygame.image.load(image_hero)
 pygame.display.set_icon(hero)
 
-pygame.display.set_caption(titre_fenetre)
+pygame.display.set_caption(window_title)
 level =Level("maze")
-level.generer()
-level.afficher(fenetre)
+level.create()
+level.youcanplay(window)
 pygame.display.flip()
 
-mg = Perso("images/MacGyver.png","images/MacGyver.png","images/MacGyver.png","images/MacGyver.png",level)
-continuer = 1
-while continuer:
-		
+mg = Stargate("images/MacGyver.png",level)
+#Need to fix this 
+
+keepplaying = 1
+while keepplaying:
+#LOOP running automatically, auto display	
 	for event in pygame.event.get():
 
 		if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
@@ -29,20 +31,25 @@ while continuer:
 
 			if event.key == K_RIGHT:
 				
-				mg.deplacer("droite")
+				mg.moveto("right")
 			elif event.key == K_LEFT:
 				
-				mg.deplacer('gauche')
+				mg.moveto('left')
 			elif event.key == K_UP:
 				
-				mg.deplacer('haut')
+				mg.moveto('up')
 			elif event.key == K_DOWN:
 				
-				mg.deplacer('bas') 
-	fenetre.blit(fond, (0,0))
-	level.afficher(fenetre)
-	fenetre.blit(mg.direction, (mg.x, mg.y)) 
-	pygame.display.flip()		
+				mg.moveto('down') 
+	
+	window.blit(floor, (0,0))
+	level.youcanplay(window)
+	window.blit(mg.direction, (mg.x, mg.y)) 
+	pygame.display.flip()	
+
+	if level.structure[mg.case_y][mg.case_x] == 'a':
+		#Need to create text bubble
+		keepplaying =0
 
 	#déplacements de macgyver
 	

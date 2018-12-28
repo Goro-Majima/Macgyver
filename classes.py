@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from constantes import *
+from constants import *
 
 class Level:
 	def __init__(self,fichier):
@@ -8,79 +8,77 @@ class Level:
 
 
 
-	def generer(self):
+	def create(self):
 		with open("maze","r") as fichier:
-			structure_niveau =[]
-			for ligne in fichier:
-				ligne_niveau =[]
-				for sprite in ligne:
+			level_structure =[]
+			for line in fichier:
+				level_line =[]
+				for sprite in line:
 					if sprite != '\n':
-						ligne_niveau.append(sprite)
-				structure_niveau.append(ligne_niveau)
-			self.structure = structure_niveau
+						level_line.append(sprite)
+				level_structure.append(level_line)
+			self.structure = level_structure
+	def youcanplay(self,window):
 
-	def afficher(self,fenetre):
-
-		mur = pygame.image.load(image_mur).convert()
+		wall = pygame.image.load(image_wall).convert()
 		#start = pygame.image.load(image_hero).convert_alpha()
 		badguy = pygame.image.load(image_badguy).convert_alpha()
 
-		num_ligne = 0
-		for ligne in self.structure:
+		num_line = 0
+		for line in self.structure:
 			num_case=0
-			for sprite in ligne:
-				x = num_case * taille_sprite
-				y = num_ligne * taille_sprite
+			for sprite in line:
+				x = num_case * sprite_size
+				y = num_line * sprite_size
 				if sprite == 'm':
-					fenetre.blit(mur,(x,y))
+					window.blit(wall,(x,y))
 				#elif sprite == 'd':
 					#fenetre.blit(start,(x,y))
 				elif sprite == 'a':
-					fenetre.blit(badguy,(x,y))
+					window.blit(badguy,(x,y))
 				num_case +=1
-			num_ligne+=1
+			num_line+=1
 
-class Perso:
-	def __init__(self,droite,gauche,haut,bas,level):
-		self.droite = pygame.image.load(droite).convert_alpha()
-		self.gauche = pygame.image.load(gauche).convert_alpha()
-		self.haut = pygame.image.load(haut).convert_alpha()
-		self.bas = pygame.image.load(bas).convert_alpha()
+class Stargate:
+	def __init__(self,right,level):
+		self.right = pygame.image.load(right).convert_alpha()
+
 		self.case_x = 0
 		self.case_y = 0
 		self.x = 0 
 		self.y = 0
 		
-		self.direction = self.droite
+		self.direction = self.right
 		self.level= level
-	def deplacer(self,direction):
-		if direction == "droite":
-			if self.case_x < (nombre_sprite - 1):
+	def moveto(self,direction):
+		if direction == "right":
+			#Avoid right boundarie
+			if self.case_x < (numberofsprite - 1):
 				if self.level.structure[self.case_y][self.case_x+1] != "m":
 					self.case_x +=1
-					self.x = self.case_x * taille_sprite
-			self.direction = self.droite
+					self.x = self.case_x * sprite_size			
 			
-		#Déplacement vers la gauche
-		if direction == 'gauche':
+		#Moving left
+		if direction == 'left':
+			#Avoid left boundary
 			if self.case_x > 0:
 				if self.level.structure[self.case_y][self.case_x-1] != 'm':
 					self.case_x -= 1
-					self.x = self.case_x * taille_sprite
-			self.direction = self.gauche
+					self.x = self.case_x * sprite_size			
 		
-		#Déplacement vers le haut
-		if direction == 'haut':
+		#Moving up
+		if direction == 'up':
+			#Y  inversed 
 			if self.case_y > 0:
 				if self.level.structure[self.case_y-1][self.case_x] != 'm':
 					self.case_y -= 1
-					self.y = self.case_y * taille_sprite
-			self.direction = self.haut
-		
-		#Déplacement vers le bas
-		if direction == 'bas':
-			if self.case_y < (nombre_sprite - 1):
+					self.y = self.case_y * sprite_size
+					
+		#Moving down
+		if direction == 'down':
+			if self.case_y < (numberofsprite - 1):
 				if self.level.structure[self.case_y+1][self.case_x] != 'm':
 					self.case_y += 1
-					self.y = self.case_y * taille_sprite
-			self.direction = self.bas
+					self.y = self.case_y * sprite_size
+			
+
