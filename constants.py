@@ -17,5 +17,5 @@ image_badguy = "images/Gardien.png"
 #objets
 image_ether = "images/ether.png"
 image_tube="images/tube_plastique.png"
-image_needle="images/seringue.png"
+image_syringe="images/syringe.png"
 
