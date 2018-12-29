@@ -57,18 +57,22 @@ class Stargate:
 			#Avoid right boundary
 			if self.case_x < (numberofsprite - 1):
 				if self.level.structure[self.case_y][self.case_x+1] != "m":
-					print(self.case_y,self.case_x)
 					#Avoid right boundary
 					self.case_x +=1
 					self.x = self.case_x * sprite_size			
-			
+					print(self.level.structure[self.case_y][self.case_x])	
+					print(self.case_y,self.case_x)
+					print(self.x)
 		#Moving left
 		if direction == 'left':
 			#Avoid left boundary
 			if self.case_x > 0:
 				if self.level.structure[self.case_y][self.case_x-1] != 'm':
 					self.case_x -= 1
-					self.x = self.case_x * sprite_size			
+					self.x = self.case_x * sprite_size	
+					print(self.level.structure[self.case_y][self.case_x])	
+					print(self.case_y,self.case_x)
+					print(self.x)	
 		
 		#Moving up
 		if direction == 'up':
@@ -77,29 +81,36 @@ class Stargate:
 				if self.level.structure[self.case_y-1][self.case_x] != 'm':
 					self.case_y -= 1
 					self.y = self.case_y * sprite_size
-					
+					print(self.level.structure[self.case_y][self.case_x])	
+					print(self.case_y,self.case_x)
+					print(self.y)
 		#Moving down
 		if direction == 'down':
 			if self.case_y < (numberofsprite - 1):
 				if self.level.structure[self.case_y+1][self.case_x] != 'm':
 					self.case_y += 1
 					self.y = self.case_y * sprite_size
-
-	def shuffle(self,level):
-		self.level = level
+					print(self.level.structure[self.case_y][self.case_x])	
+					print(self.case_y,self.case_x)
+					print(self.y)
+	def shuffle(self):
+		
 		
 		# object2 = pygame.image.load("images/ether.png").convert_alpha()
 		# object3 = pygame.image.load("images/tube_plastique.png").convert_alpha()	
-		x = random.randint(0,numberofsprite - 1)
-		y = random.randint(0,numberofsprite - 1)
-		while self.level.structure[x][y] != "0":
-			x = random.randint(0,numberofsprite - 1)
-			y = random.randint(0,numberofsprite - 1)		 		
+		xo = random.randint(0,numberofsprite-1 )
+		yo = random.randint(0,numberofsprite-1 )
+		while self.level.structure[xo][yo] == "m" or self.level.structure[xo][yo] == "a" :
+			xo = random.randint(0,numberofsprite-1 )
+			yo = random.randint(0,numberofsprite-1)		 		
+			print(xo,yo)
 				
-		self.p1 = x * sprite_size
-		self.p2 = y * sprite_size
-		print(self.level.structure[x][y])
+		self.p1 = xo * sprite_size
+		self.p2 = yo * sprite_size 
+		print(xo,yo)
+		print(self.level.structure[xo][yo])
 		print(self.p1,self.p2)	
+		#pas bon car ça multiplie dans les murs qui sont plus "m"
 	
 	def showobjects(self,window):
 		syringe = pygame.image.load(image_syringe).convert_alpha()

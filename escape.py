@@ -22,7 +22,7 @@ level =Level()
 level.create()
 mg = Stargate(level)
 level.cast(window)
-mg.shuffle(level)
+mg.shuffle()
 pygame.display.flip()
 
 keepplaying = 1
@@ -35,18 +35,15 @@ while keepplaying:
 			keepplaying=0
 		elif event.type == KEYDOWN:
 
-			if event.key == K_RIGHT:
-				
+			if event.key == K_RIGHT:				
 				mg.moveto("right")
-			elif event.key == K_LEFT:
-				
+			elif event.key == K_LEFT:				
 				mg.moveto('left')
-			elif event.key == K_UP:
-				
+			elif event.key == K_UP:				
 				mg.moveto('up')
-			elif event.key == K_DOWN:
-				
+			elif event.key == K_DOWN:				
 				mg.moveto('down') 
+	
 	window.blit(floor, (0,0))
 	level.cast(window)
 	window.blit(mg.direction, (mg.x, mg.y)) 
