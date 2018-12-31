@@ -1,12 +1,9 @@
 import pygame
-import random
 
 from pygame.locals import *
 
 from constants import *
 from classes import *
-
-pygame.init()
 
 window = pygame.display.set_mode((win_size,win_size))
 floor = pygame.image.load(image_floor).convert()
@@ -23,12 +20,13 @@ level.create()
 mg = Stargate(level)
 level.cast(window)
 mg.shuffle()
+
 pygame.display.flip()
 
 keepplaying = 1
 while keepplaying:
 #LOOP running automatically, auto display	
-	
+	# pygame.time.Clock().tick(30)
 	for event in pygame.event.get():
 
 		if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
@@ -50,11 +48,18 @@ while keepplaying:
 	mg.showobjects(window)
 	pygame.display.flip()	
 
+
 	if level.structure[mg.case_y][mg.case_x] == 'a':
 		#Need to create text bubble
 		keepplaying =0
+	if mg.case_y == mg.y0 and mg.case_x == mg.x0:
+		mg.delete(window)
+	if mg.case_y == mg.y1 and mg.case_x == mg.x1:
+		print("ok ether")
+	if mg.case_y == mg.y2 and mg.case_x == mg.x2:
+		print("ok tube")	
 
-	#déplacements de macgyver
+	#TROUVER UN MOYEN DE RECUPER LES VARIABLES P1 P2 P3 ETC
 	
 	# if posMacgyver = posGardien="a" et que gathered = 3:
 	# 	print("Gagné")		

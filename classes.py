@@ -19,8 +19,8 @@ class Level:
 						level_line.append(sprite)
 				level_structure.append(level_line)
 			self.structure = level_structure
+	
 	def cast(self,window):
-
 		wall = pygame.image.load(image_wall).convert()
 		badguy = pygame.image.load(image_badguy).convert_alpha()
 
@@ -38,8 +38,12 @@ class Level:
 			num_line+=1
 
 class Stargate:
-	def __init__(self,level):
+	def __init__(self,level):		
+
 		syringe = pygame.image.load(image_syringe).convert_alpha()
+		tube = pygame.image.load(image_tube).convert_alpha()
+		ether = pygame.image.load(image_ether).convert_alpha()
+
 		self.start = pygame.image.load("images/MacGyver.png").convert_alpha()
 
 		self.case_x = 0
@@ -49,9 +53,14 @@ class Stargate:
 		
 		self.direction = self.start
 		self.level= level
-
+		#init coordinates
 		self.p1= 0
 		self.p2 =0
+		self.p3= 0
+		self.p4 =0
+		self.p5= 0
+		self.p6 =0
+
 	def moveto(self,direction):
 		if direction == "right":
 			#Avoid right boundary
@@ -60,9 +69,7 @@ class Stargate:
 					#Avoid right boundary
 					self.case_x +=1
 					self.x = self.case_x * sprite_size			
-					print(self.level.structure[self.case_y][self.case_x])	
-					print(self.case_y,self.case_x)
-					print(self.x)
+					
 		#Moving left
 		if direction == 'left':
 			#Avoid left boundary
@@ -70,9 +77,7 @@ class Stargate:
 				if self.level.structure[self.case_y][self.case_x-1] != 'm':
 					self.case_x -= 1
 					self.x = self.case_x * sprite_size	
-					print(self.level.structure[self.case_y][self.case_x])	
-					print(self.case_y,self.case_x)
-					print(self.x)	
+					
 		
 		#Moving up
 		if direction == 'up':
@@ -81,37 +86,60 @@ class Stargate:
 				if self.level.structure[self.case_y-1][self.case_x] != 'm':
 					self.case_y -= 1
 					self.y = self.case_y * sprite_size
-					print(self.level.structure[self.case_y][self.case_x])	
-					print(self.case_y,self.case_x)
-					print(self.y)
+					
 		#Moving down
 		if direction == 'down':
 			if self.case_y < (numberofsprite - 1):
 				if self.level.structure[self.case_y+1][self.case_x] != 'm':
 					self.case_y += 1
 					self.y = self.case_y * sprite_size
-					print(self.level.structure[self.case_y][self.case_x])	
-					print(self.case_y,self.case_x)
-					print(self.y)
+									
 	def shuffle(self):
 		
+		#syringe coordinate
+		self.x0 = random.randint(0, numberofsprite-1)
+		self.y0 = random.randint(0, numberofsprite-1)
+			
+		while self.level.structure[self.y0][self.x0] != "0":			
+			self.x0 = random.randint(0, numberofsprite-1)
+			self.y0 = random.randint(0, numberofsprite-1)	
 		
-		# object2 = pygame.image.load("images/ether.png").convert_alpha()
-		# object3 = pygame.image.load("images/tube_plastique.png").convert_alpha()	
-		xo = random.randint(0,numberofsprite-1 )
-		yo = random.randint(0,numberofsprite-1 )
-		while self.level.structure[xo][yo] == "m" or self.level.structure[xo][yo] == "a" :
-			xo = random.randint(0,numberofsprite-1 )
-			yo = random.randint(0,numberofsprite-1)		 		
-			print(xo,yo)
-				
-		self.p1 = xo * sprite_size
-		self.p2 = yo * sprite_size 
-		print(xo,yo)
-		print(self.level.structure[xo][yo])
-		print(self.p1,self.p2)	
-		#pas bon car ça multiplie dans les murs qui sont plus "m"
-	
+		self.p1 = self.x0 * sprite_size
+		self.p2 = self.y0 * sprite_size	
+					
+		#tube coordinate
+		self.x1 = random.randint(0, numberofsprite-1)
+		self.y1 = random.randint(0, numberofsprite-1) 		
+		while self.level.structure[self.y1][self.x1] != "0":			
+			self.x1 = random.randint(0, numberofsprite-1)
+			self.y1 = random.randint(0, numberofsprite-1)	
+		
+		self.p3 = self.x1 * sprite_size
+		self.p4 = self.y1 * sprite_size
+
+		#tube coordinate
+		self.x2 = random.randint(0, numberofsprite-1)
+		self.y2 = random.randint(0, numberofsprite-1) 
+		while self.level.structure[self.y2][self.x2] != "0":			
+			self.x2 = random.randint(0, numberofsprite-1)
+			self.y2 = random.randint(0, numberofsprite-1)	
+		
+		self.p5 = self.x2 * sprite_size
+		self.p6 = self.y2 * sprite_size
+		
+		return self.x0,self.x1,self.x2,self.y0,self.y1,self.y2
+
 	def showobjects(self,window):
 		syringe = pygame.image.load(image_syringe).convert_alpha()
+		tube = pygame.image.load(image_tube).convert_alpha()
+		ether = pygame.image.load(image_ether).convert_alpha()
+
 		window.blit(syringe,(self.p1,self.p2))
+		window.blit(tube,(self.p3,self.p4))
+		window.blit(ether,(self.p5,self.p6))
+
+
+		
+		
+
+		

@@ -9,7 +9,6 @@ window_title = "Macgyver escape"
 image_wall = "images/brick.png"
 image_floor = "images/fond.jpg"
 
-
 #images perso
 image_hero = "images/MacGyver.png"
 image_badguy = "images/Gardien.png"
