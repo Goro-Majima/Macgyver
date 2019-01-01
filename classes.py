@@ -61,6 +61,7 @@ class Stargate:
 		self.p5= 0
 		self.p6 =0
 
+		
 	def moveto(self,direction):
 		if direction == "right":
 			#Avoid right boundary
@@ -129,17 +130,28 @@ class Stargate:
 		
 		return self.x0,self.x1,self.x2,self.y0,self.y1,self.y2
 
-	def showobjects(self,window):
+	def showobjects(self,window,syringecount,tubecount,ethercount):
+		#During the first loop, show the three items with the count =0, then each item 
+		#hit by mg will add 1 to their respective count, which clear the object for the next loop.
+		self.syringecount = syringecount
+		self.tubecount =tubecount
+		self.ethercount = ethercount
 		syringe = pygame.image.load(image_syringe).convert_alpha()
 		tube = pygame.image.load(image_tube).convert_alpha()
 		ether = pygame.image.load(image_ether).convert_alpha()
+		if self.syringecount ==0:
+			window.blit(syringe,(self.p1,self.p2))
+		if tubecount == 0:
+			window.blit(tube,(self.p3,self.p4))
+		if ethercount == 0:
+			window.blit(ether,(self.p5,self.p6))
 
-		window.blit(syringe,(self.p1,self.p2))
-		window.blit(tube,(self.p3,self.p4))
-		window.blit(ether,(self.p5,self.p6))
+
+	
 
 
-		
+
+
 		
 
 		
