@@ -4,7 +4,7 @@ import random
 from pygame.locals import *
 from constants import *
 class Level:
-
+#Create Level with the file maze and run through it.#
     def __init__(self):
         self.structure = 0
     def create(self):
@@ -37,23 +37,14 @@ class Level:
 class Stargate:
     def __init__(self, level):
 
-        self.start = pygame.image.load("images/MacGyver.png").convert_alpha()
+        self.macgyver = pygame.image.load("images/MacGyver.png").convert_alpha()
 
         self.case_x = 0
         self.case_y = 0
         self.x_axis = 0
         self.y_axis = 0
-        self.direction = self.start
+        self.direction = self.macgyver
         self.level = level
-        #init coordinates
-        self.x_syringe = 0
-        self.y_syringe = 0
-        self.x_tube = 0
-        self.y_tube = 0
-        self.x_ether = 0
-        self.y_ether = 0
-
-
     def moveto(self, direction):
         if direction == "right":
             #Avoid right boundary
@@ -85,12 +76,24 @@ class Stargate:
                 if self.level.structure[self.case_y+1][self.case_x] != 'm':
                     self.case_y += 1
                     self.y_axis = self.case_y * sprite_size
-
-    def shuffle(self):
-
-        #syringe coordinate
+class Items:
+    def __init__(self):
         self.rxsyr = random.randint(0, numberofsprite-1)
         self.rysyr = random.randint(0, numberofsprite-1)
+        self.rxtube = random.randint(0, numberofsprite-1)
+        self.rytube = random.randint(0, numberofsprite-1)
+        self.rxether = random.randint(0, numberofsprite-1)
+        self.ryether = random.randint(0, numberofsprite-1)
+               #init coordinates
+        self.x_syringe = 0
+        self.y_syringe = 0
+        self.x_tube = 0
+        self.y_tube = 0
+        self.x_ether = 0
+        self.y_ether = 0
+    def shuffle(self, level):
+        self.level = level
+        #syringe coordinate
         while self.level.structure[self.rysyr][self.rxsyr] != "0":
             self.rxsyr = random.randint(0, numberofsprite-1)
             self.rysyr = random.randint(0, numberofsprite-1)
@@ -99,8 +102,6 @@ class Stargate:
         self.y_syringe = self.rysyr * sprite_size
 
         #tube coordinate
-        self.rxtube = random.randint(0, numberofsprite-1)
-        self.rytube = random.randint(0, numberofsprite-1)
         while self.level.structure[self.rytube][self.rxtube] != "0":
             self.rxtube = random.randint(0, numberofsprite-1)
             self.rytube = random.randint(0, numberofsprite-1)
@@ -109,8 +110,6 @@ class Stargate:
         self.y_tube = self.rytube * sprite_size
 
         #ether coordinate
-        self.rxether = random.randint(0, numberofsprite-1)
-        self.ryether = random.randint(0, numberofsprite-1)
         while self.level.structure[self.ryether][self.rxether] != "0":
             self.rxether = random.randint(0, numberofsprite-1)
             self.ryether = random.randint(0, numberofsprite-1)
