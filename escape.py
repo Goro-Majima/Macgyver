@@ -1,3 +1,4 @@
+"""1st video game in pygame for my project 3"""
 import pygame
 
 from pygame.locals import *
@@ -5,75 +6,66 @@ from pygame.locals import *
 from constants import *
 from classes import *
 
-window = pygame.display.set_mode((win_size,win_size))
-floor = pygame.image.load(image_floor).convert()
-hero = pygame.image.load(image_hero)
+WINDOW = pygame.display.set_mode((win_size, win_size))
+FLOOR = pygame.image.load(image_floor).convert()
+HERO = pygame.image.load(image_hero)
 
-ether = pygame.image.load(image_ether).convert_alpha()
-tube = pygame.image.load(image_tube).convert_alpha()
-pygame.display.set_icon(hero)
+pygame.display.set_icon(HERO)
 pygame.display.set_caption(window_title)
 
 
-level =Level()
+level = Level()
 level.create()
-mg = Stargate(level)
-level.cast(window)
-mg.shuffle()
+MG = Stargate(level)
+level.cast(WINDOW)
+MG.shuffle()
 
 pygame.display.flip()
 
 #Define variable
-syringecount= 0
-ethercount=0
-tubecount = 0
-total = 0
+SYRINGE_COUNT = 0
+ETHER_COUNT = 0
+TUBE_COUNT = 0
+TOTAL = 0
 
-keepplaying = 1
-while keepplaying:
-#LOOP running automatically, auto display	
+KEEPPLAYING = 1
+while KEEPPLAYING:
+#LOOP running automatically, auto display
 	# pygame.time.Clock().tick(30)
-	for event in pygame.event.get():
+    for event in pygame.event.get():
+        if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
+            KEEPPLAYING = 0
+        elif event.type == KEYDOWN:
 
-		if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
-			keepplaying=0
-		elif event.type == KEYDOWN:
-
-			if event.key == K_RIGHT:				
-				mg.moveto("right")
-			elif event.key == K_LEFT:				
-				mg.moveto('left')
-			elif event.key == K_UP:				
-				mg.moveto('up')
-			elif event.key == K_DOWN:				
-				mg.moveto('down') 
-	
-	window.blit(floor, (0,0))
-	level.cast(window)
-	window.blit(mg.direction, (mg.x, mg.y)) 
-	mg.showobjects(window,syringecount,tubecount,ethercount)
-	pygame.display.flip()	
+            if event.key == K_RIGHT:
+                MG.moveto("right")
+            elif event.key == K_LEFT:
+                MG.moveto('left')
+            elif event.key == K_UP:
+                MG.moveto('up')
+            elif event.key == K_DOWN:
+                MG.moveto('down')
+    WINDOW.blit(FLOOR, (0, 0))
+    level.cast(WINDOW)
+    WINDOW.blit(MG.direction, (MG.x_axis, MG.y_axis))
+    MG.showobjects(WINDOW, SYRINGE_COUNT, TUBE_COUNT, ETHER_COUNT)
+    pygame.display.flip()
 
 
-	if level.structure[mg.case_y][mg.case_x] == 'a' and total != 3:
-		#Need to create text bubble
-		keepplaying =1
-		print("Désolé le garde t'a tué")
-	elif level.structure[mg.case_y][mg.case_x] == 'a' and total == 3:
-		keepplaying =0
-	if mg.case_y == mg.y0 and mg.case_x == mg.x0 and syringecount == 0:
-		syringecount += 1
-		total += 1
-	if mg.case_y == mg.y1 and mg.case_x == mg.x1 and tubecount == 0:
-		tubecount = 1
-		total += 1
-		print(mg.p3,mg.p4)
-	if mg.case_y == mg.y2 and mg.case_x == mg.x2 and ethercount == 0:
-		ethercount = 1
-		total += 1	
-	if total == 3:
-		print(total)
-
-
-
-
+    if level.structure[MG.case_y][MG.case_x] == 'a' and TOTAL != 3:
+	    #Need to create text bubble
+        KEEPPLAYING = 1
+        print("Désolé le garde t'a tué")
+    elif level.structure[MG.case_y][MG.case_x] == 'a' and TOTAL == 3:
+        KEEPPLAYING = 0
+    if MG.case_y == MG.rysyr and MG.case_x == MG.rxsyr and SYRINGE_COUNT == 0:
+        SYRINGE_COUNT += 1
+        TOTAL += 1
+    if MG.case_y == MG.rytube and MG.case_x == MG.rxtube and TUBE_COUNT == 0:
+        TUBE_COUNT = 1
+        TOTAL += 1
+    if MG.case_y == MG.ryether and MG.case_x == MG.rxether and ETHER_COUNT == 0:
+        ETHER_COUNT = 1
+        TOTAL += 1
+    if TOTAL == 3:
+        print(TOTAL)
