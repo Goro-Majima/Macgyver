@@ -1,13 +1,14 @@
 '''Classes for the creation of the maze, moving hero and items'''
-import pygame
 import random
+import pygame
 from pygame.locals import *
 from constants import *
 class Level:
-#Create Level with the file maze and run through it.#
+    """ Init the level structure."""
     def __init__(self):
         self.structure = 0
     def create(self):
+        """Run through the file maze and append each letter to its line into a list """
         with open("maze", "r") as fichier:
             level_structure = []
             for line in fichier:
@@ -19,6 +20,7 @@ class Level:
             self.structure = level_structure
 
     def cast(self, window):
+        """ Initialize the labyrinth according to the structure list. """
         wall = pygame.image.load(image_wall).convert()
         badguy = pygame.image.load(image_badguy).convert_alpha()
         num_line = 0
@@ -35,6 +37,7 @@ class Level:
             num_line += 1
 
 class Stargate:
+    """Init the Hero and set to his starting position. """
     def __init__(self, level):
 
         self.macgyver = pygame.image.load("images/MacGyver.png").convert_alpha()
@@ -46,6 +49,7 @@ class Stargate:
         self.direction = self.macgyver
         self.level = level
     def moveto(self, direction):
+        """ Creation of his move and boundaries """
         if direction == "right":
             #Avoid right boundary
             if self.case_x < (numberofsprite - 1):
@@ -77,6 +81,7 @@ class Stargate:
                     self.case_y += 1
                     self.y_axis = self.case_y * sprite_size
 class Items:
+    """ Init items randomly on the floor map."""
     def __init__(self):
         self.rxsyr = random.randint(0, numberofsprite-1)
         self.rysyr = random.randint(0, numberofsprite-1)
@@ -92,6 +97,7 @@ class Items:
         self.x_ether = 0
         self.y_ether = 0
     def shuffle(self, level):
+        """ run through the list and set items out of wall and guard """
         self.level = level
         #syringe coordinate
         while self.level.structure[self.rysyr][self.rxsyr] != "0":
@@ -119,8 +125,12 @@ class Items:
         return self.rxsyr, self.rxtube, self.rxether, self.rysyr, self.rytube, self.ryether
 
     def showobjects(self, window, SYRINGE_COUNT, TUBE_COUNT, ETHER_COUNT):
-        #During the first loop, show the three items with the count =0, then each item
-        #hit by mg will add 1 to their respective count, which clear the object for the next loop.
+        """"
+        During the first loop, show the three items with the count =0, then each item
+        hit by mg will add 1 to their respective count, which clear the object for the next loop.
+
+        """
+
         self.SYRINGE_COUNT = SYRINGE_COUNT
         self.TUBE_COUNT = TUBE_COUNT
         self.ETHER_COUNT = ETHER_COUNT
