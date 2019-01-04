@@ -130,7 +130,6 @@ class Items:
         hit by mg will add 1 to their respective count, which clear the object for the next loop.
 
         """
-
         self.SYRINGE_COUNT = SYRINGE_COUNT
         self.TUBE_COUNT = TUBE_COUNT
         self.ETHER_COUNT = ETHER_COUNT
