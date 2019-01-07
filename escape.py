@@ -4,6 +4,7 @@ import pygame
 from pygame.locals import *
 from constants import *
 from classes import *
+
 pygame.init()
 
 #Initialize interface with title and logo.
@@ -13,10 +14,30 @@ HERO = pygame.image.load(image_hero)
 pygame.display.set_icon(HERO)
 pygame.display.set_caption(window_title)
 
+#First window with instructions of the game
+PLAYING = 1
+KEEPPLAYING = 1
+
+while PLAYING:
+    MENU = pygame.image.load(screen_menu)
+    WINDOW.blit(MENU, (0, 0))
+    pygame.display.flip()
+    for event in pygame.event.get():
+        if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
+            PLAYING = 0
+            KEEPPLAYING = 0
+        elif event.type == KEYDOWN and event.key == K_RETURN:
+            KEEPPLAYING = 1
+            PLAYING = 0
+
 #Display live gathered item
 MYFONT = pygame.font.SysFont("monospace", 40)
-COUNTER = MYFONT.render("ITEM: 0", 1, (255, 25, 0))
+COUNTER = MYFONT.render("ITEM: 0", 1, (255, 255, 255))
 
+#END message
+MYFONT2 = pygame.font.SysFont("monospace", 40)
+WIN = MYFONT2.render("YOU WIN", 1, (255, 255, 255))
+LOSS = MYFONT2.render("YOU LOST", 1, (255, 255, 255))
 #Create the maze and randomly display items over it.
 LEVEL = Level()
 LEVEL.create()
@@ -24,7 +45,6 @@ ITEM = Items()
 MG = Stargate(LEVEL)
 LEVEL.cast(WINDOW)
 ITEM.shuffle(LEVEL)
-pygame.display.flip()
 
 #Define variables
 SYRINGE_COUNT = 0
@@ -32,12 +52,13 @@ ETHER_COUNT = 0
 TUBE_COUNT = 0
 TOTAL = 0
 
-#Generate win/loss message.
-SCREEN = Tk()
+# #Generate win/loss label message.
+# SCREEN = Tk()
 
-KEEPPLAYING = 1
 while KEEPPLAYING:
 #LOOP running automatically, auto display
+    pygame.display.flip()
+
     pygame.time.Clock().tick(30)
     for event in pygame.event.get():
         if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
@@ -62,26 +83,28 @@ while KEEPPLAYING:
 
     if LEVEL.structure[MG.case_y][MG.case_x] == 'a' and TOTAL != 3:
 	    #Need to create text bubble
-        KEEPPLAYING = 0
-        FIELD = Label(SCREEN, text="  The guard caught you ! GAME OVER.  ")
-        FIELD.pack()
-        SCREEN.mainloop()
+        WINDOW.blit(LOSS, (200, 240))
+        pygame.display.flip()
+        # FIELD = Label(SCREEN, text="  The guard caught you ! GAME OVER.  ")
+        # FIELD.pack()
+        # SCREEN.mainloop()
     elif LEVEL.structure[MG.case_y][MG.case_x] == 'a' and TOTAL == 3:
-        KEEPPLAYING = 0
-        FIELD = Label(SCREEN, text="  You put the guard down. nice escape, \
-        Congratulations you just beat the game !!  ")
-        FIELD.pack()
-        SCREEN.mainloop()
+        # FIELD = Label(SCREEN, text="  You put the guard down. Nice escape,\
+        # congratulations, you just beat the game !!  ")
+        # FIELD.pack()
+        # SCREEN.mainloop()
+        WINDOW.blit(WIN, (200, 240))
+        pygame.display.flip()
     if MG.case_y == ITEM.rysyr and MG.case_x == ITEM.rxsyr and SYRINGE_COUNT == 0:
         SYRINGE_COUNT += 1
         TOTAL += 1
 
-        COUNTER = MYFONT.render("Items: "+ str(TOTAL), 1, (255, 25, 0))
+        COUNTER = MYFONT.render("Items: "+ str(TOTAL), 1, (255, 255, 255))
     if MG.case_y == ITEM.rytube and MG.case_x == ITEM.rxtube and TUBE_COUNT == 0:
         TUBE_COUNT = 1
         TOTAL += 1
-        COUNTER = MYFONT.render("Items: "+ str(TOTAL), 1, (255, 55, 0))
+        COUNTER = MYFONT.render("Items: "+ str(TOTAL), 1, (255, 255, 255))
     if MG.case_y == ITEM.ryether and MG.case_x == ITEM.rxether and ETHER_COUNT == 0:
         ETHER_COUNT = 1
         TOTAL += 1
-        COUNTER = MYFONT.render("Items: "+ str(TOTAL), 1, (255, 25, 0))
+        COUNTER = MYFONT.render("Items: "+ str(TOTAL), 1, (255, 255, 255))
