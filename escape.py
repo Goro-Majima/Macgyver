@@ -1,5 +1,4 @@
 """1st video game in pygame for my project 3"""
-from tkinter import *
 import pygame
 from pygame.locals import *
 from constants import *
@@ -7,7 +6,7 @@ from classes import *
 
 pygame.init()
 
-#Initialize interface with title and logo.
+#Initialize game with title and logo.
 WINDOW = pygame.display.set_mode((win_size, win_size))
 FLOOR = pygame.image.load(image_floor).convert()
 HERO = pygame.image.load(image_hero)
@@ -17,7 +16,6 @@ pygame.display.set_caption(window_title)
 #First window with instructions of the game
 PLAYING = 1
 KEEPPLAYING = 1
-
 while PLAYING:
     MENU = pygame.image.load(screen_menu)
     WINDOW.blit(MENU, (0, 0))
@@ -43,7 +41,6 @@ LEVEL = Level()
 LEVEL.create()
 ITEM = Items()
 MG = Stargate(LEVEL)
-LEVEL.cast(WINDOW)
 ITEM.shuffle(LEVEL)
 
 #Define variables
@@ -74,7 +71,7 @@ while KEEPPLAYING:
             elif event.key == K_DOWN:
                 MG.moveto('down')
     WINDOW.blit(FLOOR, (0, 0))
-    LEVEL.cast(WINDOW)
+    LEVEL.build(WINDOW)
     WINDOW.blit(MG.direction, (MG.x_axis, MG.y_axis))
     WINDOW.blit(COUNTER, (120, 0))
     ITEM.showobjects(WINDOW, SYRINGE_COUNT, TUBE_COUNT, ETHER_COUNT)

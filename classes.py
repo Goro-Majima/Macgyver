@@ -19,7 +19,7 @@ class Level:
                 level_structure.append(level_line)
             self.structure = level_structure
 
-    def cast(self, window):
+    def build(self, window):
         """ Initialize the labyrinth according to the structure list. """
         wall = pygame.image.load(image_wall).convert()
         badguy = pygame.image.load(image_badguy).convert_alpha()
