@@ -1,9 +1,17 @@
-"""1st video game in pygame for my project 3"""
+"""
+Macgyver escape game is the first video game in pygame for my project 3
+The goal is to move Macgyver over the maze in order to collect items and put the guard down.
+
+Python scripts
+Files: escape.py, constants.py, classes.py, maze + images
+
+"""
 import pygame
 from pygame.locals import *
 from constants import *
 from classes import *
 
+#pygame modules need to be initialized
 pygame.init()
 
 #Initialize game with title and logo.
@@ -28,7 +36,7 @@ while PLAYING:
             KEEPPLAYING = 1
             PLAYING = 0
 
-#Display live gathered item
+#Display live gathered item, monospace writing style, 40 is the size
 MYFONT = pygame.font.SysFont("monospace", 40)
 COUNTER = MYFONT.render("ITEM: 0", 1, (255, 255, 255))
 
@@ -41,6 +49,7 @@ LEVEL = Level()
 LEVEL.create()
 ITEM = Items()
 MG = Stargate(LEVEL)
+#Here because we need to randomly spread once and not at each loop
 ITEM.shuffle(LEVEL)
 
 #Define variables

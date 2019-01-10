@@ -6,7 +6,7 @@ from constants import *
 class Level:
     """ Init the level structure."""
     def __init__(self):
-        self.structure = 0
+        self.structure = []
     def create(self):
         """Run through the file maze and append each letter to its line into a list """
         with open("maze", "r") as fichier:
@@ -89,7 +89,7 @@ class Items:
         self.rytube = random.randint(0, numberofsprite-1)
         self.rxether = random.randint(0, numberofsprite-1)
         self.ryether = random.randint(0, numberofsprite-1)
-               #init coordinates
+        #init coordinates
         self.x_syringe = 0
         self.y_syringe = 0
         self.x_tube = 0
@@ -127,7 +127,7 @@ class Items:
     def showobjects(self, window, SYRINGE_COUNT, TUBE_COUNT, ETHER_COUNT):
         """"
         During the first loop, show the three items with the count =0, then each item
-        hit by mg will add 1 to their respective count, which clear the object for the next loop.
+        hit by mg will increment  their respective count, which clear the object for the next loop.
 
         """
         self.SYRINGE_COUNT = SYRINGE_COUNT
