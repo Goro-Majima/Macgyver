@@ -106,7 +106,7 @@ class Items:
 
         self.x_syringe = self.rxsyr * sprite_size
         self.y_syringe = self.rysyr * sprite_size
-
+        self.level.structure[self.rysyr][self.rxsyr] = "I"
         #tube coordinate
         while self.level.structure[self.rytube][self.rxtube] != "0":
             self.rxtube = random.randint(0, numberofsprite-1)
@@ -114,7 +114,7 @@ class Items:
 
         self.x_tube = self.rxtube * sprite_size
         self.y_tube = self.rytube * sprite_size
-
+        self.level.structure[self.rytube][self.rxtube] = "I"
         #ether coordinate
         while self.level.structure[self.ryether][self.rxether] != "0":
             self.rxether = random.randint(0, numberofsprite-1)
