@@ -23,7 +23,7 @@ pygame.display.set_caption(window_title)
 
 #Display live gathered item, monospace writing style, 40 is the size
 MYFONT = pygame.font.SysFont("monospace", 40)
-COUNTER = MYFONT.render("ITEM: 0", 1, (255, 255, 255))
+
 
 #END message
 MYFONT2 = pygame.font.SysFont("monospace", 20)
@@ -61,6 +61,8 @@ while MENUSCREEN:
         ETHER_COUNT = 0
         TUBE_COUNT = 0
         TOTAL = 0
+        
+        COUNTER = MYFONT.render("ITEM: 0", 1, (255, 255, 255))
 
         while KEEPPLAYING:
         #LOOP running automatically, game display
