@@ -61,7 +61,7 @@ while MENUSCREEN:
         ETHER_COUNT = 0
         TUBE_COUNT = 0
         TOTAL = 0
-        
+
         COUNTER = MYFONT.render("ITEM: 0", 1, (255, 255, 255))
 
         while KEEPPLAYING:

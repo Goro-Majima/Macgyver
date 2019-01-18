@@ -60,7 +60,7 @@ confidence=
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use "--disable=all --enable=classes
 # --disable=W0401,W0614".
-disable=W0401,W0614,
+disable=W0401,W0614,C0103,
         print-statement,
         parameter-unpacking,
         unpacking-in-except,
