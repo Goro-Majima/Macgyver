@@ -15,11 +15,11 @@ from classes import *
 pygame.init()
 
 #Initialize game with title and logo.
-WINDOW = pygame.display.set_mode((win_size, win_size))
-FLOOR = pygame.image.load(image_floor).convert()
-HERO = pygame.image.load(image_hero)
+WINDOW = pygame.display.set_mode((WIN_SIZE, WIN_SIZE))
+FLOOR = pygame.image.load(IMAGE_FLOOR).convert()
+HERO = pygame.image.load(IMAGE_HERO)
 pygame.display.set_icon(HERO)
-pygame.display.set_caption(window_title)
+pygame.display.set_caption(WINDOW_TITLE)
 
 #Display live gathered item, monospace writing style, 40 is the size
 MYFONT = pygame.font.SysFont("monospace", 40)
@@ -37,7 +37,7 @@ END = 0
 
 while MENUSCREEN:
     KEEPPLAYING = 0
-    MENU = pygame.image.load(screen_menu)
+    MENU = pygame.image.load(SCREEN_MENU)
     WINDOW.blit(MENU, (0, 0))
     pygame.display.flip()
     for event in pygame.event.get():
