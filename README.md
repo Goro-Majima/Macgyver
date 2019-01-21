@@ -1,28 +1,38 @@
 # Macgyver escape game
 
-Dans le cadre de ce projet, j’ai pour but de créer un jeu de labyrinthe en 2D où Macgyver doit s'en échapper. Il doit pour cela ramasser des objets pour endormir un gardien qui bloque la sortie. 
+In this project, the goal is to create a 2D game where you (Macgyver) has to escape from a maze but a guardian is looking for you. In order to do so, he has to collect three items and put the guard asleep. 
 
-Cela peut paraître facile car ce jeu est d’apparence simple, mais la conception demande une certaine technique et architecture qui seront déployées méthodiquement. J’ai opté pour l’approche en programmation objet.  J’ai eu pendant le projet quelques blocages dus à un algorithme pas assez complet ou encore des variables non définies. Mais ce que je retiendrai est surtout le moment de joie quand je trouve finalement la solution à mon cas.
-Ce projet est développé avec Sublime text 3 sous Windows 10, versionné sur github et respecte les recommandations de la PEP8.
+If you collect less, you lose. You can restart the game as long as you want.
+ 
+Environment: Sublime text 3 on windows 10, virtual environment, PEP8 style.
 
-## Version de python
+## Version of python
 
 Python 3.7
 
 Pygame 
 
-## Structure du programme:
+## Content:
 
-escape.py: Fichier qui organise la structure et le déroulement du programme.
+escape.py: Game process. Execute this file to start the game
 
-classes.py: Emplacement des classes et des fonctions créés pour apporter plus de clarté.
+classes.py: Classes and functions are in this file. 
 
-        Classes : Level(fonctions create, build) : pour la création du niveau 
-                  Stargate(fonction moveto) : pour créér et positionner les mouvements de Macgyver.
-                  Items(fonctions shuffle, showobjects) pour afficher les objets de manière aléatoire et les faire disparaître dans le jeu.
+        Classes : Level(create, build) : Create the maze and its components
+                  Stargate(moveto) : Create Macgyver and manage his movements. 
+                  Items(shuffle, showobjects): Display randomly and manage the items during the game.
 
-Constants.py:  Définition des constantes telles que les titres, dimensions, images afin de pouvoir les utiliser/modifier plus simplement.  
+Constants.py: Edition of the constants  
 
-Images: stockage des images qui représentent visuellement le jeu
+Images: Icones and images of the game are here.
 
-Maze: fichier qui représente le labyrinthe en format .txt.
+Maze: That represents the maze before his display in txt file.
+
+## How to start the game
+
+- Install python 
+
+- Download the zip.
+
+- Execute the file escape.py (ctrl + b)
+
